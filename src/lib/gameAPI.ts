@@ -21,3 +21,4 @@ export const getGenres = (): Genre[] => [
     // // { id: 34, name: "Educational" },
     // { id: 17, name: "Card" }
 ];
+

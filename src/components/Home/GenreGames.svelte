@@ -1,26 +1,29 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { Genre } from "@/types/gameAPI";
+  import type { Game, Genre } from "@/types/gameAPI";
   import * as Carousel from "$lib/components/ui/carousel/index.js";
 
   export let genre: Genre;
 
-  let games = []; // Declare a variable to hold the games data
+  let games: Game[] = []; // Declare a variable to hold the games data
 
   onMount(async () => {
-    // Fetch data from the server-side endpoint
-    const res = await fetch(`/api/gamesbygenre/${genre.id}`);
-
-    console.log("fetching...", res);
-
-
-    if (res.ok) {
-      const data = await res.json();
-
-      games = data.results; // Assign the returned games data to the variable
-    } else {
-      console.error("Failed to load data", res.status);
+    
+    try {
+      const res = await fetch(`/api/gamesbygenre/${genre.id}`);
+  
+      if (res.ok) {
+        const data = await res.json();
+  
+        games = data.results; // Assign the returned games data to the variable
+      } else {
+        console.error("Failed to load data", res.status);
+      }
+      
+    } catch (error) {
+        console.error(error);
     }
+
   });
 </script>
 

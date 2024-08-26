@@ -12,7 +12,7 @@
             <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               {#each genres as genre}
                 <li>
-                    <a href="/" class="text-white hover:underline" aria-current="page">{genre.name}</a>
+                    <a href={`/genre/${genre.name.toLowerCase()}`} class="text-white hover:underline" >{genre.name}</a>
                 </li>
               {/each}
             </ul>
