@@ -1,15 +1,28 @@
-<script>
-  // Ensure the file exists at the correct path
-  import { getGenres } from "../lib/gameAPI"; // Check this path
-  const genres = getGenres(); // This should work if the import is correct
+<script lang="ts">
+  import HomeGrid from "@/components/Home/FeaturedGrid.svelte";
+  import GenreGames from "@/components/Home/GenreGames.svelte";
+  import type { PageData } from "./$types";
+  import { getGenres } from "@/lib/gameAPI";
+
+  export let data: PageData;
+  let genres = getGenres();
 </script>
-  
 
-<h1 class="text-3xl font-bold">Welcome to SvelteKit</h1>
-<p class="text-lg">Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-3xl font-bold">Featured Games</h2>
+    <span class="text-lg text-slate-400"
+      >Discover the latest games and stay up-to-date with the gaming world.</span
+    >
+  </div>
 
-<ul>
-  {#each genres as genre}
-    <li>{genre.name}</li>
-  {/each}
-</ul>
+  <section class="flex mb-8">
+    <HomeGrid items={data.games.results || []} />
+  </section>
+
+  <section class="flex flex-col gap-4">
+    {#each genres as genre}
+      <GenreGames {genre} />
+    {/each}
+  </section>
+</div>
